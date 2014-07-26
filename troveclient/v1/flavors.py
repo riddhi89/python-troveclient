@@ -29,11 +29,17 @@ class Flavors(base.ManagerWithFind):
     resource_class = Flavor
 
     def list(self):
-        """Get a list of all flavors.
-
+        """Get a list of all flavors for the default datastore version
         :rtype: list of :class:`Flavor`.
         """
         return self._list("/flavors", "flavors")
+
+    def list_by_versionid(self, datastore_version_id):
+        """Get a list of all flavors for the specified datastore version
+        :rtype: list of :class:`Flavor`.
+        """
+        url = "/flavors/datastores/versions/%s" % datastore_version_id
+        return self._list(url, "flavors")
 
     def get(self, flavor):
         """Get a specific flavor.
